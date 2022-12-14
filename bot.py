@@ -22,8 +22,9 @@ async def on_message(message):
 		return
 
 	#When user types "!", the bot types the API response in the chat
+	#If the ! is followed by a known spell, it will return values
 	if message.content.startswith('!'):
-		spell_name = " Acid Arrow "
+		spell_name = message.content[1:]
 		spell_name = spell_name.strip().lower().replace(" ", "-")
 		spell_info = spells(spell_name)
 		await message.channel.send(spell_info)
@@ -32,6 +33,6 @@ async def on_message(message):
 
 client.run(bot_token)
 
-#todo: dynamic spell look up by the user
+#DONE: dynamic spell look up by the user
 #todo: add more look ups: feats, traits, skills, monsters
 #todo: Bot sends message to current server members or new members in a PM (only once!) explaining what it does and which commands it responds to.
