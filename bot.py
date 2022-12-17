@@ -6,9 +6,12 @@ from api_requests import spells
 #You can do this under "Secrets" in replit
 bot_token = os.environ['TOKEN']
 
-#All intents enabled for now
-client = discord.Client(intents=discord.Intents().all())
+#default intents, enalbing members and message_content
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
 
+client = discord.Client(intents = intents)
 
 #When the bot first starts, it displays in the console that you are logged in as (bot user)
 @client.event
@@ -28,11 +31,7 @@ async def on_message(message):
 		spell_name = spell_name.strip().lower().replace(" ", "-")
 		spell_info = spells(spell_name)
 		await message.channel.send(spell_info)
-	#TO DO: read the user's input and give the spell info accordingly.
-
 
 client.run(bot_token)
 
-#DONE: dynamic spell look up by the user
-#todo: add more look ups: feats, traits, skills, monsters
-#todo: Bot sends message to current server members or new members in a PM (only once!) explaining what it does and which commands it responds to.
+

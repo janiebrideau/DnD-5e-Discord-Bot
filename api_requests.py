@@ -1,5 +1,9 @@
 import requests
 import json
+from config import config_all
+from config import config
+from parsed_values import returned_values_all
+from parsed_values import returned_values
 
 #We are using https://www.dnd5eapi.co/ API
 #API Request for Spells - hard coded for now just to test
@@ -7,12 +11,10 @@ def spells(name):
 	api_response = requests.get("https://www.dnd5eapi.co/api/spells/"+name)
 	json_data = json.loads(api_response.text)
 	
-	description = json.dumps(json_data['desc']).strip('[]').strip('""')
-	name = json.dumps(json_data['name']).strip('""')
-	range = json.dumps(json_data['range']).strip('""')
-	concentration = json.dumps(json_data['concentration']).strip('""')
-	duration = json.dumps(json_data['duration']).strip('""')
-	higher_level =  json.dumps(json_data['higher_level']).strip('[]').strip('""')
+	if config_all() == True:
+		 return returned_values_all(json_data)
+	else:
+		config_values = config()
+		return  returned_values(json_data, config_values[0], config_values[1], config_values[2], config_values[3], config_values[4], config_values[5])
+
 	
-	spell_info = "NAME: " + name + "\nDESCRIPTION: " + description + "\nRANGE: " + range + "\nCONCENTRATION: " + concentration + "\nDURATION: " + duration + "\nHIGHER LEVEL: " + higher_level
-	return(spell_info)
