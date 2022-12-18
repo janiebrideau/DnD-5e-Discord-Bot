@@ -15,6 +15,7 @@ def spells(name):
 		 return returned_values_all(json_data)
 	else:
 		config_values = config()
-		return  returned_values(json_data, config_values[0], config_values[1], config_values[2], config_values[3], config_values[4], config_values[5])
+		
+		return returned_values(json_data, config_values[0], config_values[1], config_values[2], config_values[3], config_values[4], config_values[5])
 
 	
