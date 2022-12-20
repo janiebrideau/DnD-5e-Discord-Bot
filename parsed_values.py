@@ -1,7 +1,7 @@
 import json
 import logging
 
-def returned_values(json_data, name, desc, range, concentration, duration, higher_lvl):
+def parsed_response(json_data, name, desc, range, concentration, duration, higher_lvl):
 
 	if desc == True:
 		desc_response = json.dumps(json_data['desc']).strip('[]').strip('""')
