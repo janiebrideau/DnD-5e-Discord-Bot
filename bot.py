@@ -1,8 +1,8 @@
 import os
 import discord
-from api_requests import spells
+from request import spells
 
-#You will need to inlude your own discord bot's token as an env variable
+#You will need to inlude your own bot's token as an env variable
 #You can do this under "Secrets" in replit
 bot_token = os.environ['TOKEN']
 
@@ -24,8 +24,7 @@ async def on_message(message):
 	if message.author == client.user:
 		return
 
-	#When user types "!", the bot types the API response in the chat
-	#If the ! is followed by a known spell, it will return values
+	#When user types "!" followed by a DnD 5e spell name, the bot types the API response in the chat
 	if message.content.startswith('!'):
 		spell_name = message.content[1:]
 		spell_name = spell_name.strip().lower().replace(" ", "-")

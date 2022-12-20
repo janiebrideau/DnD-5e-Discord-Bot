@@ -1,62 +1,56 @@
 import json
+import logging
 
-#TODO: Clean this up. Functional for now.
+def returned_values(json_data, name, desc, range, concentration, duration, higher_lvl):
 
-def returned_values_all(json_data):
-	description = json.dumps(json_data['desc']).strip('[]').strip('""')
-	name = json.dumps(json_data['name']).strip('""')
-	range = json.dumps(json_data['range']).strip('""')
-	concentration = json.dumps(json_data['concentration']).strip('""')
-	duration = json.dumps(json_data['duration']).strip('""')
-	higher_level =  json.dumps(json_data['higher_level']).strip('[]').strip('""')
-
-	#This is often empty for certain spells. Make it not show up if it is empty.
-	high_lvl_string = ""
-	if len(higher_level) != 0:
-		high_lvl_string = "\nHIGHER LEVEL: "
-
-	spell_info = "NAME: " + name + "\nDESCRIPTION: " + description + "\nRANGE: " + range + "\nCONCENTRATION: " + concentration + "\nDURATION: " + duration + high_lvl_string + higher_level
-
-	return(spell_info)
-
-def returned_values(json_data, descr, name, range, concentration, duration, higher_lvl):
-	
-	desc_text = ""
-	name_text = ""
-	range_text = ""
-	concentration_text = ""
-	duration_text = ""
-	high_lvl_string = ""
-	
-	if descr == True:
-		description = json.dumps(json_data['desc']).strip('[]').strip('""')
+	if desc == True:
+		desc_response = json.dumps(json_data['desc']).strip('[]').strip('""')
 		desc_text = "\nDESCRIPTION: "
+	else:
+		desc_response = ""
+		desc_text = ""
 
 	if name == True:
-		name_text = json.dumps(json_data['name']).strip('""')
-		name = "NAME: "
+		name_response = json.dumps(json_data['name']).strip('""')
+		name_text = "NAME: "
+	else:
+		name_response = ""
+		name_text = ""
 		
 	if range == True:
-		range = json.dumps(json_data['range']).strip('""')
+		range_response = json.dumps(json_data['range']).strip('""')
 		range_text = "\nRANGE: "
+	else:
+		range_response = ""
+		range_text = ""
 		
 	if concentration == True:
-		concentration = json.dumps(json_data['concentration']).strip('""')
+		concentration_response = json.dumps(json_data['concentration']).strip('""')
 		concentration_text = "\nCONCENTRATION: "
+	else:
+		concentration_response = ""
+		concentration_text = ""
 		
 	if duration == True:
-		duration = json.dumps(json_data['duration']).strip('""')
+		duration_response = json.dumps(json_data['duration']).strip('""')
 		duration_text = "\nDURATION: "
-		
+	else:
+		duration_response = ""
+		duration_text = ""
+
 	if higher_lvl == True:
-		higher_lvl =  json.dumps(json_data['higher_level']).strip('[]').strip('""')
-		if len(higher_lvl) != 0:
+		higher_lvl_response =  json.dumps(json_data['higher_level']).strip('[]').strip('""')
+		if len(higher_lvl_response) != 0:
 			high_lvl_string = "\nHIGHER LEVEL: "
 		else:
 			high_lvl_string = ""
 	else:
-		higher_lvl - ""
+		higher_lvl_response = ""
+		high_lvl_string = ""
 
-	spell_info = name + name_text + desc_text + description + range_text + range + concentration_text + concentration + duration_text + duration + high_lvl_string + higher_lvl
+	spell_info = name_text + name_response + desc_text + desc_response + range_text + range_response + concentration_text + concentration_response + duration_text + duration_response + high_lvl_string + higher_lvl_response
 
+	if not spell_info:
+		logging.error('spell_info is empty. Make sure config.py is set up properly.')
+	
 	return(spell_info)
